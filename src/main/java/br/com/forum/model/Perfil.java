@@ -12,18 +12,20 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="perfil")
 public class Perfil implements GrantedAuthority {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JsonIgnore
+	private List<Usuario> usuarios;
 	
 	public Long getId() {
 		return id;
@@ -48,9 +50,6 @@ public class Perfil implements GrantedAuthority {
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-
-	@ManyToMany(fetch=FetchType.EAGER)
-	private List<Usuario> usuarios;
 
 	@Override
 	public String getAuthority() {

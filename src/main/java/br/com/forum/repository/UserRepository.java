@@ -10,8 +10,9 @@ import br.com.forum.model.Usuario;
 @Repository
 public interface UserRepository extends CrudRepository<Usuario, Long> {
 
-
 	Optional<Usuario> findByEmail(String email);
+	
+	Optional<Usuario> findById(Long id);
 }
 
 

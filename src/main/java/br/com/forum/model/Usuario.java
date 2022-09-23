@@ -14,13 +14,12 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="usuario")
 public class Usuario implements UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -28,6 +27,7 @@ public class Usuario implements UserDetails {
 	private String email;
 	private String senha;
 	@ManyToMany(fetch=FetchType.EAGER)
+	@JsonIgnore
 	private List<Perfil> perfil;
 
 	@Override
@@ -102,7 +102,7 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return this.getPassword();
+		return this.getSenha();
 	}
 
 	@Override
