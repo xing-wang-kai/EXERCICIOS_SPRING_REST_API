@@ -40,7 +40,8 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 	private void AutenticarViaToken(String token) {
 		try {
 			Usuario usuario = tokenService.RetornarUsuario(token);
-			UsernamePasswordAuthenticationToken usuarioAuth = new UsernamePasswordAuthenticationToken(usuario.getId(), null, usuario.getAuthorities());
+			UsernamePasswordAuthenticationToken usuarioAuth = 
+						new UsernamePasswordAuthenticationToken(usuario.getId(), null, usuario.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(usuarioAuth);
 		}catch(Exception e)
 		{
@@ -57,5 +58,4 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 		return token.substring(7, token.length());
 	}
 
-	
 }

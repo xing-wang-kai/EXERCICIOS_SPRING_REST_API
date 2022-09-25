@@ -59,8 +59,6 @@ public class TokenService {
 		
 		return usuarioService.buscarUsuarioPorId(id);
 		
-		
 	}
 
-	
 }

@@ -47,6 +47,8 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 				.permitAll()			
 			.antMatchers(HttpMethod.POST, "/usuario/cadastra/**")
 				.permitAll()
+			.antMatchers(HttpMethod.GET, "/interceptor")
+				.permitAll()
 			.anyRequest()
 				.authenticated()
 			.and()
