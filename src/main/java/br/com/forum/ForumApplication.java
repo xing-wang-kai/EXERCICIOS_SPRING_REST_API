@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
+
 @SpringBootApplication
 @Caching
 @EnableSpringDataWebSupport

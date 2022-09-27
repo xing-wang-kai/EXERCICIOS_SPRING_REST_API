@@ -1,15 +1,14 @@
 package br.com.forum;
 
-import javax.servlet.Filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,6 +19,7 @@ import br.com.forum.config.AuthenticationTokenFilter;
 import br.com.forum.service.AuthService;
 import br.com.forum.service.TokenService;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
@@ -49,6 +49,8 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 				.permitAll()
 			.antMatchers(HttpMethod.GET, "/interceptor")
 				.permitAll()
+			.antMatchers(HttpMethod.GET, "/actuator/**")
+				.permitAll()
 			.anyRequest()
 				.authenticated()
 			.and()
@@ -63,4 +65,11 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		auth.userDetailsService(AuthService).passwordEncoder(encoder);
 	}
+	
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring()
+		.antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+		
+		}
 }
